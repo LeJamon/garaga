@@ -5,7 +5,7 @@ use garaga::definitions::{
 
 
 #[derive(Drop, Serde)]
-struct FullProofWithHintsBN254 {
+pub struct FullProofWithHintsBN254 {
     groth16_proof: Groth16Proof,
     mpcheck_hint: MPCheckHintBN254,
     small_Q: E12DMulQuotient<u288>,
@@ -13,7 +13,7 @@ struct FullProofWithHintsBN254 {
 }
 
 #[derive(Drop, Serde)]
-struct FullProofWithHintsBLS12_381 {
+pub struct FullProofWithHintsBLS12_381 {
     groth16_proof: Groth16Proof,
     mpcheck_hint: MPCheckHintBLS12_381,
     small_Q: E12DMulQuotient<u384>,
@@ -21,7 +21,7 @@ struct FullProofWithHintsBLS12_381 {
 }
 
 #[derive(Serde, Drop)]
-struct FullProofWithHintsRisc0 {
+pub struct FullProofWithHintsRisc0 {
     groth16_proof: Groth16ProofRaw,
     image_id: Span<u32>,
     journal_digest: Span<u32>,

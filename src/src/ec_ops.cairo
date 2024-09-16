@@ -88,7 +88,7 @@ impl G2PointImpl of G2PointTrait {
 
 // Adds two elliptic curve points on a given curve.
 // Does not check the input points are on the curve.
-fn ec_safe_add(p: G1Point, q: G1Point, curve_index: usize) -> G1Point {
+pub fn ec_safe_add(p: G1Point, q: G1Point, curve_index: usize) -> G1Point {
     if p.is_infinity() {
         return q;
     }
@@ -122,7 +122,7 @@ struct DerivePointFromXOutput {
 }
 
 #[inline(always)]
-fn get_DERIVE_POINT_FROM_X_circuit(
+pub fn get_DERIVE_POINT_FROM_X_circuit(
     x: u384, sqrt_rhs_or_g_rhs: u384, curve_index: usize
 ) -> DerivePointFromXOutput {
     // INPUT stack
@@ -186,7 +186,7 @@ fn get_DERIVE_POINT_FROM_X_circuit(
 // If z has a square root in Fp, then g*z does not have a square root in Fp*.
 // If z does not have a square root in Fp, then g*z has a square root in Fp*.
 // Note: there is exactly (p-1)//2 square roots in Fp*.
-fn derive_ec_point_from_X(
+pub fn derive_ec_point_from_X(
     mut x: felt252, y_last_attempt: u384, mut g_rhs_sqrt: Array<u384>, curve_index: usize,
 ) -> G1Point {
     let mut attempt: felt252 = 0;
@@ -220,14 +220,14 @@ fn derive_ec_point_from_X(
 // No information about the degrees of the polynomials is stored here as they are derived
 // implicitely from the MSM size.
 #[derive(Drop, Debug, PartialEq, Serde)]
-struct FunctionFelt {
+pub struct FunctionFelt {
     a_num: Span<u384>,
     a_den: Span<u384>,
     b_num: Span<u384>,
     b_den: Span<u384>,
 }
 #[derive(Drop, Debug, Copy, PartialEq)]
-struct FunctionFeltEvaluations {
+ struct FunctionFeltEvaluations {
     a_num: u384,
     a_den: u384,
     b_num: u384,
@@ -264,7 +264,7 @@ impl FunctionFeltImpl of FunctionFeltTrait {
 }
 
 #[derive(Drop, Debug, PartialEq, Serde)]
-struct MSMHint {
+pub struct MSMHint {
     Q_low: G1Point,
     Q_high: G1Point,
     Q_high_shifted: G1Point,
@@ -274,18 +274,18 @@ struct MSMHint {
 }
 
 #[derive(Drop, Debug, PartialEq, Serde)]
-struct MSMHintSmallScalar {
+pub struct MSMHintSmallScalar {
     Q: G1Point,
     SumDlogDiv: FunctionFelt,
 }
 
 #[derive(Drop, Debug, PartialEq, Serde)]
-struct DerivePointFromXHint {
+pub struct DerivePointFromXHint {
     y_last_attempt: u384,
     g_rhs_sqrt: Array<u384>,
 }
 
-fn scalar_mul_g1_fixed_small_scalar(
+pub fn scalar_mul_g1_fixed_small_scalar(
     point: G1Point,
     scalar_epns: (felt252, felt252, felt252, felt252),
     hint: MSMHintSmallScalar,
@@ -350,7 +350,7 @@ fn scalar_mul_g1_fixed_small_scalar(
 // hint.Q_low + 2**128 * hint.Q_high.
 // Uses https://eprint.iacr.org/2022/596.pdf eq 3 and samples a random EC point from the inputs and
 // the hint.
-fn msm_g1(
+pub fn msm_g1(
     scalars_digits_decompositions: Option<Span<(Span<felt252>, Span<felt252>)>>,
     hint: MSMHint,
     derive_point_from_x_hint: DerivePointFromXHint,
@@ -476,7 +476,7 @@ fn msm_g1(
 // hint.Q
 // Uses https://eprint.iacr.org/2022/596.pdf eq 3 and samples a random EC point from the inputs and
 // the hint.
-fn msm_g1_u128(
+pub fn msm_g1_u128(
     scalars_digits_decompositions: Option<Span<Span<felt252>>>,
     hint: MSMHintSmallScalar,
     derive_point_from_x_hint: DerivePointFromXHint,
@@ -559,7 +559,7 @@ fn msm_g1_u128(
 
 // Verifies equation 3 in https://eprint.iacr.org/2022/596.pdf, using directly the weighted sum by
 // (-3)**i of the logarithmic derivatives of the divisors functions.
-fn zk_ecip_check(
+pub fn zk_ecip_check(
     points: Span<G1Point>,
     epns: Array<(felt252, felt252, felt252, felt252)>,
     Q_result: G1Point,
@@ -591,7 +591,7 @@ fn zk_ecip_check(
 }
 
 #[inline(always)]
-fn compute_lhs_ecip(
+pub fn compute_lhs_ecip(
     sum_dlog_div: FunctionFelt,
     A0: G1Point,
     A2: G1Point,
@@ -680,7 +680,7 @@ fn compute_lhs_ecip(
 }
 
 #[inline(always)]
-fn compute_rhs_ecip(
+pub fn compute_rhs_ecip(
     mut points: Span<G1Point>,
     m_A0: u384,
     b_A0: u384,
