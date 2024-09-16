@@ -49,7 +49,7 @@ use garaga::utils::hashing;
 
 // Groth16 proof structure, genric for both BN254 and BLS12-381.
 #[derive(Drop, Serde)]
-struct Groth16Proof {
+pub struct Groth16Proof {
     a: G1Point,
     b: G2Point,
     c: G1Point,
@@ -58,7 +58,7 @@ struct Groth16Proof {
 
 // Only used for Risc0 where public inputs are derived with an extra step.
 #[derive(Drop, Serde)]
-struct Groth16ProofRaw {
+pub struct Groth16ProofRaw {
     a: G1Point,
     b: G2Point,
     c: G1Point,
@@ -69,7 +69,7 @@ struct Groth16ProofRaw {
 // Does not include IC either as its size is not fixed and we want to write it as constant in smart
 // contracts.
 #[derive(Drop)]
-struct Groth16VerifyingKey<T> {
+pub struct Groth16VerifyingKey<T> {
     alpha_beta_miller_loop_result: E12D<T>,
     gamma_g2: G2Point,
     delta_g2: G2Point,
@@ -91,7 +91,7 @@ struct Groth16VerifyingKey<T> {
 //      - If None, or partially provided, the missing decompositions are computed in pure Cairo.
 // - public_inputs_msm_hint: the MSM hint of the public inputs
 // - mpcheck_hint: the MPCheck hint of the proof
-fn verify_groth16_bn254(
+pub fn verify_groth16_bn254(
     proof: Groth16Proof,
     verification_key: Groth16VerifyingKey<u288>,
     mut lines: Span<G2Line<u288>>,

@@ -48,12 +48,12 @@ pub impl u288Serde of Serde<u288> {
 
 
 #[derive(Copy, Drop, Debug, PartialEq, Serde)]
-struct G1Point {
+pub struct G1Point {
     x: u384,
     y: u384,
 }
 #[derive(Copy, Drop, Debug, PartialEq, Serde)]
-struct G2Point {
+pub struct G2Point {
     x0: u384,
     x1: u384,
     y0: u384,
@@ -61,7 +61,7 @@ struct G2Point {
 }
 
 #[derive(Copy, Drop, Debug, PartialEq)]
-struct G2Line<T> {
+pub struct G2Line<T> {
     r0a0: T,
     r0a1: T,
     r1a0: T,
@@ -69,13 +69,13 @@ struct G2Line<T> {
 }
 
 #[derive(Copy, Drop, Debug, PartialEq, Serde)]
-struct G1G2Pair {
+pub struct G1G2Pair {
     p: G1Point,
     q: G2Point,
 }
 
 #[derive(Copy, Drop, Debug, PartialEq)]
-struct E12D<T> {
+pub struct E12D<T> {
     w0: T,
     w1: T,
     w2: T,
