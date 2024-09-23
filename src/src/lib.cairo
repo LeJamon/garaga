@@ -3,7 +3,6 @@ pub mod utils;
 pub mod ec_ops;
 pub mod pairing_check;
 pub mod circuits;
-pub mod groth16;
 pub mod basic_field_ops;
 mod tests;
 pub mod core;
