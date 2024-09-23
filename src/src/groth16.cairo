@@ -115,7 +115,7 @@ fn verify_groth16_bn254(
     proof.b.assert_on_curve(0);
     proof.c.assert_on_curve(0);
 
-    return multi_pairing_check_bn254_3P_2F_with_extra_miller_loop_result(
+    return m_p_c_bn254_3_2_w_e_m_l_r(
         G1G2Pair { p: vk_x, q: verification_key.gamma_g2 },
         G1G2Pair { p: proof.c, q: verification_key.delta_g2 },
         G1G2Pair { p: proof.a, q: proof.b },
@@ -223,8 +223,9 @@ fn verify_groth16_bls12_381(
 // And finally verify that
 // Σᵢ cᵢ * (fᵢ₋₁(z))² * Πⱼ (Lᵢⱼ(z)) = big_Q(z) * P_irr(z) + Σᵢ cᵢ * fᵢ(z),
 // reusing fᵢ(z) evaluations in the next step.
+//fn multi_pairing_check_bn254_3P_2F_with_extra_miller_loop_result(
 #[inline]
-fn multi_pairing_check_bn254_3P_2F_with_extra_miller_loop_result(
+fn m_p_c_bn254_3_2_w_e_m_l_r(
     pair0: G1G2Pair,
     pair1: G1G2Pair,
     pair2: G1G2Pair,
