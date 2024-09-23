@@ -5,6 +5,7 @@ pub mod pairing_check;
 pub mod circuits;
 pub mod basic_field_ops;
 mod tests;
+pub mod groth16;
 pub mod core;
 pub mod risc0_utils;
 
